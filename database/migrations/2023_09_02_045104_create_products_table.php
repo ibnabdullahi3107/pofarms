@@ -17,9 +17,13 @@ return new class extends Migration
             $table->string('unit');
             $table->text('description')->nullable();
             $table->integer('quantity');
-            $table->unsignedBigInteger('product_category_id');
+            $table->unsignedBigInteger('category_id');
             $table->decimal('price', 10, 1);
-            $table->foriegnId('company_id')->references('id')->on('companies');
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('category_id')->references('id')->on('categories');
+
+
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
         });
     }

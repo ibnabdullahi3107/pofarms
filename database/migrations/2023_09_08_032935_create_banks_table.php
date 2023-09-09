@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('bank_name');
             $table->string('type');
             $table->string('Amount');
+            $table->unsignedBigInteger('company_id');
+
+            $table->foreign('company_id')->references('id')->on('companies');
+
 
 
 

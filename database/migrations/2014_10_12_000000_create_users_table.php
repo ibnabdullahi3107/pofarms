@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('role')->nullable();
-            $table->foriegnId('company_id')->references('id')->on('companies');
+            $table->unsignedBigInteger('company_id');
+
+            $table->foreign('company_id')->references('id')->on('companies')->nullable();
 
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

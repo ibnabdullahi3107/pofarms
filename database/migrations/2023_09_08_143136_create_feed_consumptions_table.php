@@ -11,25 +11,29 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bank_transactions', function (Blueprint $table) {
+        Schema::create('feed_consumptions', function (Blueprint $table) {
             $table->id();
-            $table->integer('quantity');
-            $table->foreignId('bank_id')->references('id')->on('banks');
-            $table->decimal('price', 10, 1);
-            $table->text('description')->nullable();
+            $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('company_id');
+            $table->integer('quantity');
 
+
+            $table->foreign('product_id')->references('id')->on('Products');
             $table->foreign('company_id')->references('id')->on('companies');
 
             $table->timestamps();
         });
     }
+    /**
+     * Feed Balance
+     * $feed_remain= sum(Purchased::all('quantity')->where('product_id','feed_c->product->id'))- sum(FeedConsumption::all('quantity'))
+     */
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('bank_transactions');
+        Schema::dropIfExists('feed_consumptions');
     }
 };

@@ -13,13 +13,22 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->foriegnId('company_id')->references('id')->on('companies');
+            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('supplier_id');
 
-            $table->foriegnId('product_id')->references('id')->on('products');
+
+
+            $table->string('tag'); //{production,purchased}
+
             $table->integer('quantity');
             $table->decimal('u_price',10,1);
-            $table->text('decription')->nullable();
-            $table->foriegnId('supplier_id')->references('id')->on('suppliers');
+            $table->text('description')->nullable();
+            $table->foreign('supplier_id')->references('id')->on('suppliers');
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('product_id')->references('id')->on('products');
+
+
 
 
 

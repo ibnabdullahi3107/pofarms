@@ -11,26 +11,29 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sales', function (Blueprint $table) {
+        Schema::create('client_balances', function (Blueprint $table) {
             $table->id();
-
-            $table->decimal('u_price', 10, 1);
-            $table->integer('quantity_sold');
-            $table->decimal('amount',10,1);
-            $table->decimal('paid',10,1);
-            $table->string('cart_id');
-
-            $table->string('description')->nullable();
-            $table->string('phone_number')->nullable();
             $table->unsignedBigInteger('client_id');
-            $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('company_id');
 
 
-
             $table->foreign('client_id')->references('id')->on('clients');
-            $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->decimal('amount',10,1);
+            $table->text('description');
+
+            /*
+            Client Statement of account pseudo code algo
+            $debt_balance=sum(Sales('paid')->where('paid'<'amount')->where('id'='client_id') );
+
+            $client_payment= sum(ClientBalance('amount')->all()->where('id'='client_id'));
+
+            $balance=$client_payment -  $debt_balance;
+
+
+
+            */
+
 
 
             $table->timestamps();
@@ -42,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sales');
+        Schema::dropIfExists('client_balances');
     }
 };
