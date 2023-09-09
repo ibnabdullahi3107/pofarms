@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('role')->nullable();
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('company_id')->nullable();
 
             $table->foreign('company_id')->references('id')->on('companies')->nullable();
 
