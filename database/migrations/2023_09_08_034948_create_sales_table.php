@@ -17,11 +17,11 @@ return new class extends Migration
             $table->decimal('u_price', 10, 1);
             $table->integer('quantity_sold');
             $table->decimal('amount',10,1);
-            $table->decimal('paid',10,1);
+            $table->decimal('paid_amount',10,1);
             $table->string('cart_id');
+            $table->string('status')->nullable(); // {paid,null}
 
             $table->string('description')->nullable();
-            $table->string('phone_number')->nullable();
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('company_id');

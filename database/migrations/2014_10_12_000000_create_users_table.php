@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('client_id')->unique()->nullable();
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('role')->nullable();
-            $table->unsignedBigInteger('company_id')->nullable();
+            $table->unsignedBigInteger('company_id');
 
             $table->foreign('company_id')->references('id')->on('companies')->nullable();
 
@@ -29,6 +28,12 @@ return new class extends Migration
             $table->timestamps();
         });
     }
+    /**
+     * user reg page is of two type
+     * Admin regpage including company profile;
+     * staff reg page that fetches admin company id and attach it the user from admin dashboard
+     * 
+     */
 
     /**
      * Reverse the migrations.

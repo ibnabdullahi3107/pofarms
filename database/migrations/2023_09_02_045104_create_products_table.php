@@ -16,14 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('unit');
             $table->text('description')->nullable();
-            $table->integer('quantity');
             $table->unsignedBigInteger('category_id');
-            $table->decimal('price', 10, 1);
             $table->unsignedBigInteger('company_id');
             $table->foreign('category_id')->references('id')->on('categories');
 
-
-            $table->foreign('company_id')->references('id')->on('companies');
+           //get the company_id from the auth_user
+           $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
         });
     }

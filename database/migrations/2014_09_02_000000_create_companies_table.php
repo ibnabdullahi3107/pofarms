@@ -17,7 +17,15 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->text('phone_number')->nullable();
 
-
+            /**
+             * * Admin regpage including company profile;
+             * Have  same UI with User reg page
+             *
+             *fulname,phone,address
+             *   $table->text('name_id')->nullable();
+            * ('address')->nullable();
+            *('phone_number')->nullable();
+             */
 
             $table->timestamps();
         });

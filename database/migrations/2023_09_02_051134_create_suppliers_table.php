@@ -16,6 +16,8 @@ return new class extends Migration
             $table->integer('name');
             $table->text('phone_number');
             $table->string('address');
+
+            //get the company_id from the auth_user
             $table->unsignedBigInteger('company_id');
 
             $table->foreign('company_id')->references('id')->on('companies');

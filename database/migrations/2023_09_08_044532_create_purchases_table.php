@@ -19,10 +19,10 @@ return new class extends Migration
 
 
 
-            $table->string('tag'); //{production,purchased}
+            $table->string('tag'); //{production,purchased} they have different UI
 
             $table->integer('quantity');
-            $table->decimal('u_price',10,1);
+            $table->decimal('unit_price',10,1);
             $table->text('description')->nullable();
             $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->foreign('company_id')->references('id')->on('companies');

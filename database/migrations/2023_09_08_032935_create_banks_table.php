@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('banks', function (Blueprint $table) {
             $table->id();
-            $table->string('name_id');
+            $table->string('account_name');
             $table->string('bank_name');
-            $table->string('type');
             $table->string('Amount');
+
+            //get the company_id from the auth_user
             $table->unsignedBigInteger('company_id');
 
             $table->foreign('company_id')->references('id')->on('companies');

@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->text('phone_number');
             $table->text('address')->nullable();
-            $table->text('comment')->nullable();
             $table->unsignedBigInteger('company_id');
 
+            //get the company_id from the auth_user
             $table->foreign('company_id')->references('id')->on('companies');
 
 
