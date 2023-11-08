@@ -13,17 +13,18 @@ return new class extends Migration
     {
         Schema::create('bank_transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bank_id')->references('id')->on('banks');
-            $table->string('type');//withdraw,deposit
-
+            $table->string('type'); // withdraw, deposit
             $table->decimal('amount', 10, 1);
             $table->text('description')->nullable();
             $table->unsignedBigInteger('company_id');
-
-            $table->foreign('company_id')->references('id')->on('companies');
-
+            $table->unsignedBigInteger('bank_id');
             $table->timestamps();
+
+            $table->foreign('bank_id')->references('id')->on('bank')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
+
+
     }
 
     /**

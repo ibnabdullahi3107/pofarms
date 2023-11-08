@@ -16,24 +16,18 @@ return new class extends Migration
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('supplier_id');
-
-
-
-            $table->string('tag'); //{production,purchased} they have different UI
-
+            $table->enum('tag', ['production', 'purchased']);
             $table->integer('quantity');
-            $table->decimal('unit_price',10,1);
+            $table->decimal('unit_price', 12, 2);
             $table->text('description')->nullable();
-            $table->foreign('supplier_id')->references('id')->on('suppliers');
-            $table->foreign('company_id')->references('id')->on('companies');
-            $table->foreign('product_id')->references('id')->on('products');
 
+            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
-
-
-
-            $table->timestamps();
+            $table->timestamps(); 
         });
+
     }
 
     /**

@@ -30,34 +30,17 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        // Define the characters you want to include
-        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $randomCharacters = '';
-
-        // Generate a random string of characters
-        for ($i = 0; $i < 4; $i++) {
-            $randomCharacters .= $characters[rand(0, strlen($characters) - 1)];
-        }
-
-        $randomNumber = mt_rand(1000000, 9999999);
-
-        $client_id = $randomNumber . $randomCharacters;
-
-        // Debug the client_id generation
-        // dd($client_id);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'client_id' => $client_id,
         ]);
 
         event(new Registered($user));

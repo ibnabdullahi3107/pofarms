@@ -10,7 +10,7 @@
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{route('client.add')}}">Add Beneficiary</a></li>
+                            {{-- <li><a href="{{route('client.add')}}">Add Beneficiary</a></li> --}}
 
 
                             {{-- <li><a href="./index.html">Home 1</a></li> --}}
@@ -19,24 +19,69 @@
                     </li>
                     <li class="mega-menu mega-menu-sm">
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Products</span>
+                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Company</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('all_product') }}">All products</a></li>
-                            <li><a href="{{route('add_product')}}">Add Product</a></li>
-
+                            <li><a href="{{ route('companies.index') }}">All Companies</a></li>
+                            <li><a href="{{ route('companies.create') }}">Add Company</a></li>
                         </ul>
                     </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Manage Users</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('users.index') }}">All Users</a></li>
+                            <li><a href="{{ route('users.create') }}">Add User</a></li>
+                        </ul>
+                    </li>
+
                     <li class="mega-menu mega-menu-sm">
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Categories</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('all_categories') }}">All Categories</a></li>
-                            <li><a href="{{ route('add_categories') }}">Add Category</a></li>
+                            <li><a href="{{ route('categories.index') }}">All Categories</a></li>
+                            <li><a href="{{ route('categories.create') }}">Add Category</a></li>
 
                         </ul>
                     </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Suppliers</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('suppliers.index') }}">All Suppliers</a></li>
+                            <li><a href="{{ route('suppliers.create') }}">Add Suppliers</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Products</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('products.index') }}">All products</a></li>
+                            <li><a href="{{route('products.create')}}">Add Product</a></li>
+                            <li><a href="{{ route('product_quantities.index') }}">All products Quantities</a></li>
+                            <li><a href="{{route('product_quantities.create')}}">Add Product Quantities</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-note menu-icon"></i><span class="nav-text">Clients</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('clients.index') }}">All Clients</a></li>
+                            <li><a href="{{ route('clients.create') }}">Add Client</a></li>
+
+                        </ul>
+                    </li>
+
 
                     <li class="mega-menu mega-menu-sm">
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -48,6 +93,28 @@
 
                         </ul>
                     </li>
+
+                    <li class="nav-label">BANKS</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-grid menu-icon"></i><span class="nav-text">Banks</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('bank.index') }}">All Banks</a></li>
+                            <li><a href="{{ route('bank.create') }}">Add Bank</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-grid menu-icon"></i><span class="nav-text">Bank Transactions</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('bank_transactions.index') }}">All Bank Transaction</a></li>
+                            <li><a href="{{ route('bank_transactions.create') }}">Add Bank Transaction</a></li>
+                        </ul>
+                    </li>
+
                     <li class="nav-label">Apps</li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -81,30 +148,7 @@
                             <li><a href="./chart-peity.html">Peity</a></li>
                         </ul>
                     </li>
-                    <li class="nav-label">UI Components</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-grid menu-icon"></i><span class="nav-text">UI Components</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="./ui-accordion.html">Accordion</a></li>
-                            <li><a href="./ui-alert.html">Alert</a></li>
-                            <li><a href="./ui-badge.html">Badge</a></li>
-                            <li><a href="./ui-button.html">Button</a></li>
-                            <li><a href="./ui-button-group.html">Button Group</a></li>
-                            <li><a href="./ui-cards.html">Cards</a></li>
-                            <li><a href="./ui-carousel.html">Carousel</a></li>
-                            <li><a href="./ui-dropdown.html">Dropdown</a></li>
-                            <li><a href="./ui-list-group.html">List Group</a></li>
-                            <li><a href="./ui-media-object.html">Media Object</a></li>
-                            <li><a href="./ui-modal.html">Modal</a></li>
-                            <li><a href="./ui-pagination.html">Pagination</a></li>
-                            <li><a href="./ui-popover.html">Popover</a></li>
-                            <li><a href="./ui-progressbar.html">Progressbar</a></li>
-                            <li><a href="./ui-tab.html">Tab</a></li>
-                            <li><a href="./ui-typography.html">Typography</a></li>
-                        <!-- </ul>
-                    </li>
+
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-layers menu-icon"></i><span class="nav-text">Components</span>

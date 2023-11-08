@@ -3,83 +3,109 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
-use App\Http\Requests\StoreClientRequest;
-use App\Http\Requests\UpdateClientRequest;
+use App\Models\Company;
+use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the clients.
+     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        //
+        $clients = Client::all();
+        return view('clients.index', compact('clients'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new client.
+     *
+     * @return \Illuminate\View\View
      */
     public function create()
     {
-        //
+        $companies = Company::all();
+        return view('clients.create', compact('companies'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created client in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        // Validate the form data here
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-            'phone' => 'required|numeric',
-            'quantity' => 'required|integer',
-            'category' => 'required|exists:categories,id', // Validate that the category exists in the database
-            'description' => 'nullable|string',
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone_number' => 'required|string',
+            'address' => 'required|string',
+            'email' => 'nullable|email',
+            'company_id' => 'required|exists:companies,id',
         ]);
 
-        // Create a new product using the validated data
-        $product = Product::create([
-            'name' => $validatedData['name'],
-            'price' => $validatedData['price'],
-            'quantity' => $validatedData['quantity'],
-            'product_category_id' => $validatedData['category'],
-            'description' => $validatedData['description'],
-        ]);
+        Client::create($request->all());
 
-        // Redirect to a success page or do something else
-        return redirect()->route('add_product')->with('success_message', 'Product created successfully');
+        return redirect()->route('clients.index')->with('success_message', 'Client created successfully.');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified client.
+     *
+     * @param  \App\Models\Client  $client
+     * @return \Illuminate\View\View
      */
     public function show(Client $client)
     {
-        //
+        return view('clients.show', compact('client'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified client.
+     *
+     * @param  \App\Models\Client  $client
+     * @return \Illuminate\View\View
      */
     public function edit(Client $client)
     {
-        //
+        $companies = Company::all();
+        return view('clients.edit', compact('client', 'companies'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified client in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Client  $client
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateClientRequest $request, Client $client)
+    public function update(Request $request, Client $client)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone_number' => 'required|string',
+            'address' => 'required|string',
+            'email' => 'nullable|email',
+            'company_id' => 'required|exists:companies,id',
+        ]);
+
+        $client->update($request->all());
+
+        return redirect()->route('clients.index')->with('success_message', 'Client updated successfully.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified client from storage.
+     *
+     * @param  \App\Models\Client  $client
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+
+        return redirect()->route('clients.index')->with('success_message', 'Client deleted successfully.');
     }
 }

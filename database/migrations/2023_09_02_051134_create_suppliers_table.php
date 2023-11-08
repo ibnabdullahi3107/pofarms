@@ -13,17 +13,21 @@ return new class extends Migration
     {
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
-            $table->integer('name');
-            $table->text('phone_number');
+            $table->string('name');
+            $table->string('phone_number');
             $table->string('address');
+            $table->string('email')->unique();
 
-            //get the company_id from the auth_user
             $table->unsignedBigInteger('company_id');
 
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('company_id')
+                ->references('id')
+                ->on('companies')
+                ->onDelete('cascade');
 
             $table->timestamps();
         });
+
     }
 
     /**

@@ -1,10 +1,16 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DispenseController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BankController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DispenseController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\BankTransactionController;
+use App\Http\Controllers\ProductQuantityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,16 +38,33 @@ Route::middleware('auth')->group(function () {
 });
 Route::middleware('auth')->group(function () {
 
-    Route::get('/all_products', [ProductController::class, 'index'])->name('all_product');
-    Route::get('add_product', [ProductController::class, 'create'])->name('add_product');
-    // Route to handle the product creation form submission
-    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+
+    Route::resource('companies', 'App\Http\Controllers\CompanyController');
+
+    Route::resource('users', UserController::class);
+
+    Route::resource('categories', CategoryController::class);
+
+    Route::resource('clients', ClientController::class);
+
+    Route::resource('products', ProductController::class);
+
+    Route::get('/get-categories/{companyId}', [ProductController::class, 'getCategoriesByCompany']);
+
+    Route::get('/get-products-by-company/{companyId}', [ProductQuantityController::class, 'getProductsByCompany'])->name('get-products-by-company');
+
+    Route::resource('suppliers', SupplierController::class);
+
+    Route::resource('product_quantities', ProductQuantityController::class);
+
+    Route::resource('bank', BankController::class);
+
+    Route::resource('bank_transactions', BankTransactionController::class);
+
+    Route::get('/get-banks-by-company/{company}', [BankTransactionController::class, 'getBanksByCompany'])->name('get-banks-by-company');
 
 
-    Route::get('/all_categories', [CategoryController::class,'index'])->name('all_categories');
-    Route::get('add_categories', [CategoryController::class, 'create'])->name('add_categories');
-    // Route for storing a category
-    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+
 
 
     Route::get('add_dispense', [DispenseController::class, 'index'])->name('add_dispense');
@@ -49,9 +72,6 @@ Route::middleware('auth')->group(function () {
 
 
 
-    Route::get('/clients', function(){
-        return view('client');
-    })->name('client.add');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });

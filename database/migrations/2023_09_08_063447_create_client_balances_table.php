@@ -15,35 +15,17 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('company_id');
-            $table->decimal('amount',10,1);
-
-
-
-            $table->foreign('client_id')->references('id')->on('clients');
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->decimal('amount', 10, 1);
             $table->text('description');
 
-            /*
-            Client Statement of account pseudo code algo
-            $dbtsales= Sales::where('paid_amount'<'amount')->where('status'='')
-            loop
-            calculate the remaining balance alternatively use query to calculate;
-            $debt_balance= $result;
-            end loop
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
 
-
-            $client_payment= sum(ClientBalance('amount')->all()->where('id'='client_id'));
-
-            $balance=$client_payment -  $debt_balance;
-
-
-
-            */
-
-
+            // Other fields if needed
 
             $table->timestamps();
         });
+
     }
 
     /**

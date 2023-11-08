@@ -13,28 +13,25 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-
-            $table->decimal('u_price', 10, 1);
+            $table->decimal('u_price', 12, 2); // Adjusted precision
             $table->integer('quantity_sold');
-            $table->decimal('amount',10,1);
-            $table->decimal('paid_amount',10,1);
-            $table->string('cart_id');
-            $table->string('status')->nullable(); // {paid,null}
-
-            $table->string('description')->nullable();
+            $table->decimal('amount', 12, 2);
+            $table->decimal('paid_amount', 12, 2);
+            $table->string('cart_id')->nullable(); 
+            $table->enum('status', ['pending', 'paid']);
+            $table->text('description')->nullable();
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('company_id');
 
-
-
-            $table->foreign('client_id')->references('id')->on('clients');
-            $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('company_id')->references('id')->on('companies');
-
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
 
             $table->timestamps();
         });
+
+
     }
 
     /**

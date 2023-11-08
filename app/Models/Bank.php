@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Bank extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['account_name', 'bank_name', 'amount', 'company_id'];
+
+
+    public function company()
+{
+    return $this->belongsTo(Company::class);
+}
 }

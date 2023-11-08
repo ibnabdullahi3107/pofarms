@@ -3,64 +3,86 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bank;
-use App\Http\Requests\StoreBankRequest;
-use App\Http\Requests\UpdateBankRequest;
+use App\Models\Company;
+use Illuminate\Http\Request;
+
 
 class BankController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $banks = Bank::all();
+
+        return view('bank.index', compact('banks'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $companies = Company::all();
+
+        return view('bank.create', compact('companies'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreBankRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'account_name' => 'required|string|max:255',
+            'company_id' => ['required', 'exists:companies,id'],
+            'bank_name' => 'required|string|max:255',
+            'amount' => 'required|numeric',
+        ]);
+
+        Bank::create([
+            'account_name' => $request->input('account_name'),
+            'bank_name' => $request->input('bank_name'),
+            'amount' => $request->input('amount'),
+            'company_id' => $request->input('company_id'),
+        ]);
+
+        return redirect()->route('bank.index')
+            ->with('success_message', 'Bank account created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Bank $bank)
+    public function show($id)
     {
-        //
+        $bank = Bank::find($id);
+
+        return view('bank.show', compact('bank'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Bank $bank)
+    public function edit($id)
     {
-        //
+        $bank = Bank::find($id);
+        $companies = Company::all();
+
+        return view('bank.edit', compact('bank', 'companies'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateBankRequest $request, Bank $bank)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'account_name' => 'required|string|max:255',
+            'bank_name' => 'required|string|max:255',
+            'amount' => 'required|numeric',
+        ]);
+
+        $bank = Bank::find($id);
+        $bank->update([
+            'account_name' => $request->input('account_name'),
+            'bank_name' => $request->input('bank_name'),
+            'amount' => $request->input('amount'),
+        ]);
+
+        return redirect()->route('bank.index')
+            ->with('success_message', 'Bank account updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Bank $bank)
+    public function destroy($id)
     {
-        //
+        $bank = Bank::find($id);
+        $bank->delete();
+
+        return redirect()->route('bank.index')
+            ->with('success_message', 'Bank account deleted successfully');
     }
 }

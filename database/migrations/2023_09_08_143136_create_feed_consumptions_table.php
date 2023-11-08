@@ -17,12 +17,12 @@ return new class extends Migration
             $table->unsignedBigInteger('company_id');
             $table->integer('quantity');
 
-
-            $table->foreign('product_id')->references('id')->on('Products');
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade'); 
 
             $table->timestamps();
         });
+
     }
     /**
      * Feed Balance

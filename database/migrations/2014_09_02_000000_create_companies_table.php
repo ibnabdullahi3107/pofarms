@@ -13,20 +13,11 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->text('name_id')->nullable();
-            $table->text('address')->nullable();
-            $table->text('phone_number')->nullable();
-
-            /**
-             * * Admin regpage including company profile;
-             * Have  same UI with User reg page
-             *
-             *fulname,phone,address
-             *   $table->text('name_id')->nullable();
-            * ('address')->nullable();
-            *('phone_number')->nullable();
-             */
-
+            $table->string('name'); // Company name
+            $table->string('address'); // Company address
+            $table->string('email')->unique(); // Company email (unique)
+            $table->string('phone'); // Company phone number
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

@@ -13,20 +13,19 @@ return new class extends Migration
     {
         Schema::create('banks', function (Blueprint $table) {
             $table->id();
-            $table->string('account_name');
-            $table->string('bank_name');
-            $table->string('Amount');
-
-            //get the company_id from the auth_user
+            $table->string('account_name', 255);
+            $table->string('bank_name', 255);
+            $table->decimal('amount', 10, 2)->default(0);
             $table->unsignedBigInteger('company_id');
 
-            $table->foreign('company_id')->references('id')->on('companies');
-
-
-
+            $table->foreign('company_id')
+                ->references('id')
+                ->on('companies')
+                ->onDelete('cascade');
 
             $table->timestamps();
         });
+
     }
 
     /**

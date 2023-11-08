@@ -2,10 +2,28 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Client extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
+
+    protected $fillable = [
+        'name',
+        'phone_number',
+        'address',
+        'email',
+        'company_id',
+    ];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
 }
