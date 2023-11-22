@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('quantity_sold');
             $table->decimal('amount', 12, 2);
             $table->decimal('paid_amount', 12, 2);
-            $table->string('cart_id')->nullable(); 
+            $table->string('cart_id')->nullable();
             $table->enum('status', ['pending', 'paid']);
             $table->text('description')->nullable();
             $table->unsignedBigInteger('client_id');
@@ -30,8 +30,6 @@ return new class extends Migration
 
             $table->timestamps();
         });
-
-
     }
 
     /**

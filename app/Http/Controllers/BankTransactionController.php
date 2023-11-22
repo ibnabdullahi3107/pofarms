@@ -16,6 +16,7 @@ class BankTransactionController extends Controller
     public function create()
     {
         $companies = Company::all();
+        $banks = Bank::all();
         return view('bank_transactions.create', compact('companies'));
     }
 
@@ -25,11 +26,34 @@ class BankTransactionController extends Controller
         $request->validate([
             'type' => 'required',
             'amount' => 'required',
+            'description' => 'nullable',
             'company_id' => 'required',
             'bank_id' => 'required',
         ]);
 
+        // Retrieve the bank record for the given company and bank
+        $bank = Bank::where('company_id', $request->input('company_id'))
+            ->where('id', $request->input('bank_id'))
+            ->first();
 
+        if (!$bank) {
+            return redirect()->route('bank_transactions.index')
+                ->with('error_message', 'Bank not found');
+        }
+
+        if ($request->input('type') == 'withdraw' && $bank->amount < $request->input('amount')) {
+            return redirect()->route('bank_transactions.index')
+                ->with('error_message', 'Insufficient funds for withdrawal');
+        }
+
+        // Update the bank amount based on the transaction type
+        $bank->amount = ($request->input('type') == 'deposit')
+            ? $bank->amount + $request->input('amount')
+            : $bank->amount - $request->input('amount');
+
+        $bank->save();
+
+        // Create the bank transaction record
         BankTransaction::create($request->all());
 
         return redirect()->route('bank_transactions.index')
@@ -56,6 +80,29 @@ class BankTransactionController extends Controller
             'bank_id' => 'required',
         ]);
 
+        // Retrieve the bank record for the given company and bank
+        $bank = Bank::where('company_id', $request->input('company_id'))
+            ->where('id', $request->input('bank_id'))
+            ->first();
+
+        if (!$bank) {
+            return redirect()->route('bank_transactions.index')
+                ->with('error_message', 'Bank not found');
+        }
+
+        if ($request->input('type') == 'withdraw' && $bank->amount < $request->input('amount')) {
+            return redirect()->route('bank_transactions.index')
+                ->with('error_message', 'Insufficient funds for withdrawal');
+        }
+
+        // Update the bank amount based on the transaction type
+        $bank->amount = ($request->input('type') == 'deposit')
+            ? $bank->amount + $request->input('amount')
+            : $bank->amount - $request->input('amount');
+
+        $bank->save();
+
+        // Update the bank transaction record
         $bankTransaction->update($request->all());
 
         return redirect()->route('bank_transactions.index')

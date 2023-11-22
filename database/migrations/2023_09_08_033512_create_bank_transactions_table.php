@@ -20,10 +20,9 @@ return new class extends Migration
             $table->unsignedBigInteger('bank_id');
             $table->timestamps();
 
-            $table->foreign('bank_id')->references('id')->on('bank')->onDelete('cascade');
+            $table->foreign('bank_id')->references('id')->on('banks')->onDelete('cascade');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
-
 
     }
 

@@ -31,11 +31,6 @@
                                 <label for="bank_id">Bank</label>
                                 <select name="bank_id" id="bank_id" class="form-control{{ $errors->has('bank_id') ? ' is-invalid' : '' }}" required>
                                     <option value="">Select a Bank</option>
-                                    @foreach($banks as $bank)
-                                        <option value="{{ $bank->id }}" {{ old('bank_id') == $bank->id ? 'selected' : '' }}>
-                                            {{ $bank->account_name }} ({{ $bank->bank_name }})
-                                        </option>
-                                    @endforeach
                                 </select>
                                 @if ($errors->has('bank_id'))
                                     <span class="invalid-feedback" role="alert">
@@ -99,10 +94,10 @@
             success: function (response) {
                 // Clear and populate the bank dropdown with the fetched banks
                 $('#bank_id').empty();
-                $('#bank_id').append($('<option value="">Select a Bank</option>'));
+                $('#bank_id').append('<option value="">Select a Bank</option>');
 
                 $.each(response.banks, function (index, bank) {
-                    $('#bank_id').append($('<option value="' + bank.id + '">' + bank.account_name + ' (' + bank.bank_name + ')</option>'));
+                    $('#bank_id').append('<option value="' + bank.id + '">' + bank.account_name + ' (' + bank.bank_name + ')</option>');
                 });
             },
             error: function (error) {

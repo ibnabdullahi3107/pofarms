@@ -60,6 +60,17 @@
 
                     <li class="mega-menu mega-menu-sm">
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Sales Product</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('sales.index') }}">All Sales Product</a></li>
+                            <li><a href="{{ route('sales.create') }}">Sale Product</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Products</span>
                         </a>
                         <ul aria-expanded="false">
@@ -115,24 +126,32 @@
                         </ul>
                     </li>
 
-                    <li class="nav-label">Apps</li>
+                    <li class="nav-label">DISASTER</li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-envelope menu-icon"></i> <span class="nav-text">Email</span>
+                            <i class="icon-envelope menu-icon"></i> <span class="nav-text">Disaster</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./email-inbox.html">Inbox</a></li>
-                            <li><a href="./email-read.html">Read</a></li>
-                            <li><a href="./email-compose.html">Compose</a></li>
+                            <li><a href="{{ route('disaster.index') }}">All Disaster</a></li>
+                            <li><a href="{{ route('disaster.create') }}">Add Disaster</a></li>
                         </ul>
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Apps</span>
+                            <i class="icon-envelope menu-icon"></i> <span class="nav-text">Tags</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./app-profile.html">Profile</a></li>
-                            <li><a href="./app-calender.html">Calender</a></li>
+                            <li><a href="{{ route('tags.index') }}">All Tag</a></li>
+                            <li><a href="{{ route('tags.create') }}">Add Tag</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-label">REPORTS</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Make Report</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('process.date') }}">Report</a></li>
                         </ul>
                     </li>
                     <li>

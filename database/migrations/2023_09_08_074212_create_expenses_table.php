@@ -15,13 +15,16 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('tag_id');
             $table->unsignedBigInteger('company_id');
-            $table->decimal('amount', 10, 1);
+            $table->decimal('amount', 10, 2);
             $table->text('description');
+            $table->timestamps();
 
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
 
-            $table->timestamps();
+            // Indexes for foreign keys
+            $table->index('tag_id');
+            $table->index('company_id');
         });
 
     }
